@@ -12,3 +12,13 @@ app.use(express.static(__dirname + '/public'));
 app.get('/', function(req, res){
   res.render('index')
  })
+
+
+var io = require('socket.io').listen(server);
+
+io.sockets.on('connection', function(socket) {
+    socket.emit('connected');
+});
+
+
+
