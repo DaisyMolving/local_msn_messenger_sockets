@@ -16,9 +16,17 @@ app.get('/', function(req, res){
 
 var io = require('socket.io').listen(server);
 
-io.sockets.on('connection', function(socket) {
+  io.sockets.on('connection', function(socket) {
     socket.emit('connected');
-});
+
+    socket.on('chat', function(data) {
+    socket.broadcast.emit('chat', data);
+    });
+    
+    socket.on('chat', function(data) {
+    writeLine(data.name, data.line);
+    });
+  });
 
 
 
